@@ -1,0 +1,23 @@
+{
+  "name": "atm3-postprocessor-px2rem",
+  "version": "0.0.1",
+  "description": "atm3 plugin px2rem",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/femxd/atm3-postprocessor-px2rem.git"
+  },
+  "keywords": [
+    "atm3",
+    "px2rem"
+  ],
+  "author": "allanfish",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/femxd/atm3-postprocessor-px2rem/issues"
+  },
+  "homepage": "https://github.com/femxd/atm3-postprocessor-px2rem#readme"
+}
