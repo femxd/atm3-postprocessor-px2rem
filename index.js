@@ -27,7 +27,13 @@ var RemTransform = function (option) {
       'font-size:<%=fontSize%>px;\n' +
       '}\n' +
       '}\n';
+    var minTpl = '@media only screen and (min-width: <%=screenWidth%>px), only screen and (min-device-width:<%=screenWidth%>px) {\n' +
+      'html,body {\n' +
+      'font-size:<%=fontSize%>px;\n' +
+      '}\n' +
+      '}\n';
     var screens = [1080, 960, 800, 720, 640, 600, 540, 480, 414, 400, 375, 360, 320, 240];
+    tmp += (minTpl.replace(/\<%\=screenWidth%\>/g, screens[0]).replace('<%=fontSize%>', (screens[0] / designWidth) * baseFont));
     for (var i = 0; i < screens.length; i++) {
       tmp += (tpl.replace(/\<%\=screenWidth%\>/g, screens[i]).replace('<%=fontSize%>', (screens[i] / designWidth) * baseFont));
     }
