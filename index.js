@@ -27,7 +27,13 @@ var RemTransform = function (option) {
       'font-size:<%=fontSize%>px;\n' +
       '}\n' +
       '}\n';
+    var minTpl = '@media only screen and (min-width: <%=screenWidth%>px), only screen and (min-device-width:<%=screenWidth%>px) {\n' +
+      'html,body {\n' +
+      'font-size:<%=fontSize%>px;\n' +
+      '}\n' +
+      '}\n';
     var screens = [1080, 960, 800, 720, 640, 600, 540, 480, 414, 400, 375, 360, 320, 240];
+    tmp += (minTpl.replace(/\<%\=screenWidth%\>/g, screens[0]).replace('<%=fontSize%>', (screens[0] / designWidth) * baseFont));
     for (var i = 0; i < screens.length; i++) {
       tmp += (tpl.replace(/\<%\=screenWidth%\>/g, screens[i]).replace('<%=fontSize%>', (screens[i] / designWidth) * baseFont));
     }
@@ -89,6 +95,9 @@ var RemTransform = function (option) {
     if (!pxArray) {
       return;
     }
+    if (before.match(/^\s*\/\*([^\/]+)\*\//) && RegExp.$1.match(/@norem\b/)) {
+      return before;
+    }
     for (var i = 0; i < pxArray.length; i++) {
       tmp = before.split(pxArray[i]);
       if (border && _filterBorder(tmp[0])) {
@@ -104,7 +113,7 @@ var RemTransform = function (option) {
       before = before.replace(tmp[0], '').replace(pxArray[i], '');
     }
     if (useMedia) {
-      return _createMedia() + after + before;
+      return after + before + _createMedia();
     } else {
       return after + before;
     }
@@ -135,7 +144,9 @@ module.exports = function (content, file, settings) {
   if (!file.isCssLike) {
     return fis.log.error("px2rem plugin can only process css like file!");
   }
-
+  if(!settings.useRempx){
+    return content;
+  }
   var transform = new RemTransform(settings);
   return settings.mode && settings.mode === 'rem2px' ? transform.rem2px(content) : transform.px2rem(content);
 };
