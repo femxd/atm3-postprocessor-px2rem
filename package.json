@@ -1,6 +1,6 @@
 {
   "name": "atm3-postprocessor-px2rem",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "atm3 plugin px2rem",
   "main": "index.js",
   "scripts": {

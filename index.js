@@ -38,8 +38,8 @@ var RemTransform = function (option) {
   function _getRem(px, index) {
     var reg = new RegExp("[0-9]+([.]{1}[0-9]+){0,1}px", "g"), rem = px;
     var tmp = px.match(reg);
-    if(tmp && tmp.length){
-       tmp = tmp.map(function(item){ return item.substring(0, item.length-2)}); 
+    if (tmp && tmp.length) {
+      tmp = tmp.map(function (item) { return item.substring(0, item.length - 2) });
     }
     for (var i = 0; i < tmp.length; i++) {
       if (Number(tmp[i]) === 0 || px.indexOf(tmp[i] + 'px') < 0) {
@@ -74,7 +74,7 @@ var RemTransform = function (option) {
       || str.substr(-12) === 'border-right'
       || str.substr(-13) === 'border-bottom'
       || str.substr(-13) === 'border-radius'
-      ) {
+    ) {
       return true;
     }
     return false;
@@ -137,5 +137,6 @@ module.exports = function (content, file, settings) {
   }
 
   var transform = new RemTransform(settings);
-  return settings.mode && settings.mode === 'rem2px' ? transform.rem2px(content) : transform.px2rem(content);
+  var result = settings.mode && settings.mode === 'rem2px' ? transform.rem2px(content) : transform.px2rem(content);
+  return result || "/** atm3-postprocessor-px2rem: return nothing, maybe this is a mixin file */";
 };
